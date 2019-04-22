@@ -1,2 +1,10 @@
 # vehicle
-Vehicle.API is where you get the final embodiment of VIN, Service History, etc a A Vehicle.
+Mango API: Vehicle
+
+Vehicle is where you get the full information of a car.
+
+## Run with Docker
+* $ docker build -t avosa/vehicle:dev .
+* $ docker rm VehicleDEV
+* $ docker run -d -e RUNMODE=DEV -p 8098:8098 --network mango_net --name VehicleDEV avosa/vehicle:dev 
+* $ docker logs VehicleDEV
