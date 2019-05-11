@@ -28,9 +28,9 @@ func EnableFilter(s *mango.Service) *control.ControllerMap {
 	emptyMap["GET"] = roletype.User
 	emptyMap["POST"] = roletype.Owner
 
-	ctrlmap.Add("/vehicle", emptyMap)
+	ctrlmap.Add("/v1/vehicle", emptyMap)
 
-	beego.InsertFilter("/*", beego.BeforeRouter, ctrlmap.FilterAPI)
+	beego.InsertFilter("/v1/*", beego.BeforeRouter, ctrlmap.FilterAPI)
 
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowAllOrigins: true,
