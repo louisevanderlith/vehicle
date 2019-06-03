@@ -35,7 +35,7 @@ func GetVehicle(key husk.Key) (husk.Recorder, error) {
 }
 
 func (obj Vehicle) Create() (husk.Recorder, error) {
-	if vehicleExists(obj.FullVIN) {
+	if ctx.Vehicles.Exists(byFullVIN((obj.FullVIN))) {
 		return nil, errors.New("vehicle VIN already exists")
 	}
 
@@ -48,10 +48,4 @@ func (obj Vehicle) Create() (husk.Recorder, error) {
 	ctx.Vehicles.Save()
 
 	return rec.Record, nil
-}
-
-func vehicleExists(fullvin string) bool {
-	_, err := ctx.Vehicles.FindFirst(byFullVIN(fullvin))
-
-	return err != nil
 }

@@ -2,6 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
+	"log"
+	"net/http"
 
 	"github.com/louisevanderlith/husk"
 	"github.com/louisevanderlith/mango/control"
@@ -25,7 +27,7 @@ func (req *VehicleController) Get() {
 
 	result := core.GetVehicles(page, size)
 
-	req.Serve(result, nil)
+	req.Serve(http.StatusOK, nil, result)
 }
 
 //:vehicleKey
@@ -33,11 +35,19 @@ func (req *VehicleController) GetByID() {
 	key, err := husk.ParseKey(req.Ctx.Input.Param(":vehicleKey"))
 
 	if err != nil {
-		req.Serve(nil, err)
+		req.Serve(http.StatusBadRequest, err, nil)
 		return
 	}
 
-	req.Serve(core.GetVehicle(key))
+	rec, err := core.GetVehicle(key)
+
+	if err != nil {
+		log.Println(err)
+		req.Serve(http.StatusInternalServerError, err, nil)
+		return
+	}
+
+	req.Serve(http.StatusOK, nil, rec)
 }
 
 func (req *VehicleController) Post() {
@@ -47,5 +57,10 @@ func (req *VehicleController) Post() {
 
 	result, err := obj.Create()
 
-	req.Serve(result, err)
+	if err != nil {
+		log.Println(err)
+		req.Serve(http.StatusInternalServerError, err, nil)
+	}
+
+	req.Serve(http.StatusOK, nil, result)
 }
