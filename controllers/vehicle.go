@@ -1,24 +1,16 @@
 package controllers
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 
+	"github.com/louisevanderlith/droxolite/xontrols"
 	"github.com/louisevanderlith/husk"
-	"github.com/louisevanderlith/mango/control"
 	"github.com/louisevanderlith/vehicle/core"
 )
 
 type VehicleController struct {
-	control.APIController
-}
-
-func NewVehicleCtrl(ctrlMap *control.ControllerMap) *VehicleController {
-	result := &VehicleController{}
-	result.SetInstanceMap(ctrlMap)
-
-	return result
+	xontrols.APICtrl
 }
 
 //all/:pagesize
@@ -32,7 +24,7 @@ func (req *VehicleController) Get() {
 
 //:vehicleKey
 func (req *VehicleController) GetByID() {
-	key, err := husk.ParseKey(req.Ctx.Input.Param(":vehicleKey"))
+	key, err := husk.ParseKey(req.FindParam("vehicleKey"))
 
 	if err != nil {
 		req.Serve(http.StatusBadRequest, err, nil)
@@ -53,7 +45,12 @@ func (req *VehicleController) GetByID() {
 func (req *VehicleController) Post() {
 	obj := core.Vehicle{}
 
-	json.Unmarshal(req.Ctx.Input.RequestBody, &obj)
+	err := req.Body(&obj)
+
+	if err != nil {
+		req.Serve(http.StatusBadRequest, err, nil)
+		return
+	}
 
 	result, err := obj.Create()
 
