@@ -21,6 +21,6 @@ FROM scratch
 COPY --from=builder /box/vehicle .
 COPY conf conf
 
-EXPOSE 8097
+EXPOSE 8098
 
 ENTRYPOINT [ "./vehicle" ]

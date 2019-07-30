@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 	"path"
 
@@ -20,7 +19,7 @@ func main() {
 	conf, err := droxolite.LoadConfig()
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	// Register with router
@@ -29,7 +28,7 @@ func main() {
 	err = srv.Register()
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	poxy := droxolite.NewEpoxy(srv)
@@ -41,6 +40,6 @@ func main() {
 	err = poxy.Boot()
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }
