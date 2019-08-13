@@ -10,9 +10,9 @@ func Setup(poxy *droxolite.Epoxy) {
 	//Vehicle
 	vehCtrl := &controllers.VehicleController{}
 	vehGroup := droxolite.NewRouteGroup("asset", vehCtrl)
-	vehGroup.AddRoute("/", "POST", roletype.Owner, vehCtrl.Post)
-	vehGroup.AddRoute("/{key:[0-9]+\x60[0-9]+}", "GET", roletype.User, vehCtrl.GetByID)
-	vehGroup.AddRoute("/all/{pagesize:[A-Z][0-9]+}", "GET", roletype.User, vehCtrl.Get)
+	vehGroup.AddRoute("Create Vehicle", "", "POST", roletype.Owner, vehCtrl.Post)
+	vehGroup.AddRoute("Vehicle by Key", "/{key:[0-9]+\x60[0-9]+}", "GET", roletype.User, vehCtrl.GetByID)
+	vehGroup.AddRoute("All Vehicles", "/all/{pagesize:[A-Z][0-9]+}", "GET", roletype.User, vehCtrl.Get)
 	poxy.AddGroup(vehGroup)
 	/*ctrlmap := EnableFilter(s, host)
 
