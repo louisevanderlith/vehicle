@@ -4,60 +4,56 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/louisevanderlith/droxolite/xontrols"
+	"github.com/louisevanderlith/droxolite/context"
 	"github.com/louisevanderlith/husk"
 	"github.com/louisevanderlith/vehicle/core"
 )
 
 type VehicleController struct {
-	xontrols.APICtrl
 }
 
 //all/:pagesize
-func (req *VehicleController) Get() {
-	page, size := req.GetPageData()
+func (req *VehicleController) Get(ctx context.Contexer) (int, interface{}) {
+	page, size := ctx.GetPageData()
 
 	result := core.GetVehicles(page, size)
 
-	req.Serve(http.StatusOK, nil, result)
+	return http.StatusOK, result
 }
 
 //:vehicleKey
-func (req *VehicleController) GetByID() {
-	key, err := husk.ParseKey(req.FindParam("vehicleKey"))
+func (req *VehicleController) GetByID(ctx context.Contexer) (int, interface{}) {
+	key, err := husk.ParseKey(ctx.FindParam("vehicleKey"))
 
 	if err != nil {
-		req.Serve(http.StatusBadRequest, err, nil)
-		return
+		return http.StatusBadRequest, err
 	}
 
 	rec, err := core.GetVehicle(key)
 
 	if err != nil {
 		log.Println(err)
-		req.Serve(http.StatusInternalServerError, err, nil)
-		return
+		return http.StatusInternalServerError, err
 	}
 
-	req.Serve(http.StatusOK, nil, rec)
+	return http.StatusOK, rec
 }
 
-func (req *VehicleController) Post() {
+func (req *VehicleController) Post(ctx context.Contexer) (int, interface{}) {
 	obj := core.Vehicle{}
 
-	err := req.Body(&obj)
+	err := ctx.Body(&obj)
 
 	if err != nil {
-		req.Serve(http.StatusBadRequest, err, nil)
-		return
+		return http.StatusBadRequest, err
 	}
 
 	result, err := obj.Create()
 
 	if err != nil {
 		log.Println(err)
-		req.Serve(http.StatusInternalServerError, err, nil)
+		return http.StatusInternalServerError, err
 	}
 
-	req.Serve(http.StatusOK, nil, result)
+	return http.StatusOK, result
 }

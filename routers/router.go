@@ -1,15 +1,17 @@
 package routers
 
 import (
-	"github.com/louisevanderlith/droxolite"
+	"github.com/louisevanderlith/droxolite/mix"
+	"github.com/louisevanderlith/droxolite/resins"
 	"github.com/louisevanderlith/droxolite/roletype"
+	"github.com/louisevanderlith/droxolite/routing"
 	"github.com/louisevanderlith/vehicle/controllers"
 )
 
-func Setup(poxy *droxolite.Epoxy) {
+func Setup(poxy resins.Epoxi) {
 	//Vehicle
 	vehCtrl := &controllers.VehicleController{}
-	vehGroup := droxolite.NewRouteGroup("asset", vehCtrl)
+	vehGroup := routing.NewRouteGroup("asset", mix.JSON)
 	vehGroup.AddRoute("Create Vehicle", "", "POST", roletype.Owner, vehCtrl.Post)
 	vehGroup.AddRoute("Vehicle by Key", "/{key:[0-9]+\x60[0-9]+}", "GET", roletype.User, vehCtrl.GetByID)
 	vehGroup.AddRoute("All Vehicles", "/all/{pagesize:[A-Z][0-9]+}", "GET", roletype.User, vehCtrl.Get)
