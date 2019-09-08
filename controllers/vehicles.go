@@ -9,11 +9,17 @@ import (
 	"github.com/louisevanderlith/vehicle/core"
 )
 
-type VehicleController struct {
+type Vehicles struct {
+}
+
+func (req *Vehicles) Get(ctx context.Requester) (int, interface{}) {
+	result := core.GetVehicles(1, 10)
+
+	return http.StatusOK, result
 }
 
 //all/:pagesize
-func (req *VehicleController) Get(ctx context.Contexer) (int, interface{}) {
+func (req *Vehicles) Search(ctx context.Requester) (int, interface{}) {
 	page, size := ctx.GetPageData()
 
 	result := core.GetVehicles(page, size)
@@ -22,8 +28,8 @@ func (req *VehicleController) Get(ctx context.Contexer) (int, interface{}) {
 }
 
 //:vehicleKey
-func (req *VehicleController) GetByID(ctx context.Contexer) (int, interface{}) {
-	key, err := husk.ParseKey(ctx.FindParam("vehicleKey"))
+func (req *Vehicles) View(ctx context.Requester) (int, interface{}) {
+	key, err := husk.ParseKey(ctx.FindParam("key"))
 
 	if err != nil {
 		return http.StatusBadRequest, err
@@ -39,7 +45,7 @@ func (req *VehicleController) GetByID(ctx context.Contexer) (int, interface{}) {
 	return http.StatusOK, rec
 }
 
-func (req *VehicleController) Post(ctx context.Contexer) (int, interface{}) {
+func (req *Vehicles) Create(ctx context.Requester) (int, interface{}) {
 	obj := core.Vehicle{}
 
 	err := ctx.Body(&obj)
