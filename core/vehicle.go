@@ -26,7 +26,7 @@ func (m Vehicle) Valid() (bool, error) {
 	return husk.ValidateStruct(&m)
 }
 
-func GetVehicles(page, pagesize int) husk.Collection {
+func GetVehicles(page, pagesize int) (husk.Collection, error) {
 	return ctx.Vehicles.Find(page, pagesize, husk.Everything())
 }
 
@@ -35,7 +35,7 @@ func GetVehicle(key husk.Key) (husk.Recorder, error) {
 }
 
 func (obj Vehicle) Create() (husk.Recorder, error) {
-	if ctx.Vehicles.Exists(byFullVIN((obj.FullVIN))) {
+	if ctx.Vehicles.Exists(byFullVIN(obj.FullVIN)) {
 		return nil, errors.New("vehicle VIN already exists")
 	}
 
