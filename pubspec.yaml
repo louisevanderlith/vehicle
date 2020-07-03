@@ -1,0 +1,9 @@
+name: mango_vehicle
+version: 1.0.1
+description: Wrapper for Vehicle API
+repository: https://github.com/louisevanderlith/vehicle
+homepage: https://github.com/louisevanderlith/vehicle
+environment:
+  sdk: '>=2.0.0 < 3.0.0'
+dependencies:
+  mango_ui: '^1.0.3'

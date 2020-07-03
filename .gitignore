@@ -14,3 +14,9 @@
 vehicle
 db/*.husk
 !db/*.seed.json
+
+#Dart
+.dart_tool
+build
+pubspec.lock
+.packages

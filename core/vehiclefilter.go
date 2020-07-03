@@ -8,6 +8,12 @@ func (f vehicleFilter) Filter(obj husk.Dataer) bool {
 	return f(obj.(Vehicle))
 }
 
+func byYear(year int) vehicleFilter {
+	return func(obj Vehicle)bool {
+		return obj.Year == year
+	}
+}
+
 func byFullVIN(fullvin string) vehicleFilter {
 	return func(obj Vehicle) bool {
 		return obj.FullVIN == fullvin

@@ -9,10 +9,20 @@ import (
 
 func SetupRoutes(scrt, secureUrl string) http.Handler {
 	r := mux.NewRouter()
-	/*
-	vehCtrl := &handles.Vehicles{}
-		e.JoinBundle("/", roletype.Owner, mix.JSON, vehCtrl)
-	*/
+
+	view := kong.ResourceMiddleware("vehicle.info.view", scrt, secureUrl, ViewVehicle)
+	r.HandleFunc("/info/{key:[0-9]+\\x60[0-9]+}", view).Methods(http.MethodGet)
+
+	srch := kong.ResourceMiddleware("vehicle.info.search", scrt, secureUrl, SearchVehicle)
+	r.HandleFunc("/info/{pagesize:[A-Z][0-9]+}", srch).Methods(http.MethodGet)
+	//r.HandleFunc("/info/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", srch).Methods(http.MethodGet)
+
+	create := kong.ResourceMiddleware("vehicle.info.create", scrt, secureUrl, CreateVehicle)
+	r.HandleFunc("/info", create).Methods(http.MethodPost)
+
+	//update := kong.ResourceMiddleware("vehicle.info.update", scrt, secureUrl, )
+	//r.HandleFunc("/info", update).Methods(http.MethodPut)
+
 	lst, err := kong.Whitelist(http.DefaultClient, secureUrl, "vehicle.info.view", scrt)
 
 	if err != nil {

@@ -2,7 +2,6 @@ package core
 
 import (
 	"errors"
-
 	"github.com/louisevanderlith/husk"
 )
 
@@ -22,7 +21,7 @@ type Vehicle struct {
 	Extra     []string
 }
 
-func (m Vehicle) Valid() (bool, error) {
+func (m Vehicle) Valid() error {
 	return husk.ValidateStruct(&m)
 }
 

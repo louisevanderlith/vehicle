@@ -10,24 +10,6 @@ import (
 	"github.com/louisevanderlith/vehicle/core"
 )
 
-func GetVehicles(w http.ResponseWriter, r *http.Request) {
-	ctx := context.New(w, r)
-	result, err := core.GetVehicles(1, 10)
-
-	if err != nil {
-		log.Println(err)
-		http.Error(w, "", http.StatusBadRequest)
-		return
-	}
-
-	err = ctx.Serve(http.StatusOK, mix.JSON(result))
-
-	if err != nil {
-		log.Println(err)
-	}
-}
-
-//all/:pagesize
 func SearchVehicle(w http.ResponseWriter, r *http.Request) {
 	ctx := context.New(w, r)
 	page, size := ctx.GetPageData()
