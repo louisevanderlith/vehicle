@@ -9,7 +9,7 @@ import (
 
 func SetupRoutes(scrt, secureUrl string) http.Handler {
 	r := mux.NewRouter()
-
+	
 	view := kong.ResourceMiddleware("vehicle.info.view", scrt, secureUrl, ViewVehicle)
 	r.HandleFunc("/info/{key:[0-9]+\\x60[0-9]+}", view).Methods(http.MethodGet)
 
