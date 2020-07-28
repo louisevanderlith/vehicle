@@ -22,7 +22,7 @@ type Vehicle struct {
 }
 
 func (m Vehicle) Valid() error {
-	return husk.ValidateStruct(&m)
+	return husk.ValidateStruct(m)
 }
 
 func GetVehicles(page, pagesize int) (husk.Collection, error) {
