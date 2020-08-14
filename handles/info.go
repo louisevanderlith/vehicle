@@ -1,21 +1,20 @@
 package handles
 
 import (
+	"github.com/louisevanderlith/droxolite/drx"
 	"github.com/louisevanderlith/droxolite/mix"
 	"log"
 	"net/http"
 
-	"github.com/louisevanderlith/droxolite/context"
 	"github.com/louisevanderlith/husk"
 	"github.com/louisevanderlith/vehicle/core"
 )
 
 func SearchVehicle(w http.ResponseWriter, r *http.Request) {
-	ctx := context.New(w, r)
-	page, size := ctx.GetPageData()
+	page, size := drx.GetPageData(r)
 	result, err := core.GetVehicles(page, size)
 
-	err = ctx.Serve(http.StatusOK, mix.JSON(result))
+	err = mix.Write(w, mix.JSON(result))
 
 	if err != nil {
 		log.Println(err)
@@ -24,8 +23,7 @@ func SearchVehicle(w http.ResponseWriter, r *http.Request) {
 
 //:vehicleKey
 func ViewVehicle(w http.ResponseWriter, r *http.Request) {
-	ctx := context.New(w, r)
-	key, err := husk.ParseKey(ctx.FindParam("key"))
+	key, err := husk.ParseKey(drx.FindParam(r, "key"))
 
 	if err != nil {
 		log.Println(err)
@@ -41,7 +39,7 @@ func ViewVehicle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = ctx.Serve(http.StatusOK, mix.JSON(rec))
+	err = mix.Write(w, mix.JSON(rec))
 
 	if err != nil {
 		log.Println(err)
@@ -49,10 +47,9 @@ func ViewVehicle(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateVehicle(w http.ResponseWriter, r *http.Request) {
-	ctx := context.New(w, r)
 	obj := core.Vehicle{}
 
-	err := ctx.Body(&obj)
+	err := drx.JSONBody(r, &obj)
 
 	if err != nil {
 		log.Println(err)
@@ -68,7 +65,7 @@ func CreateVehicle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = ctx.Serve(http.StatusOK, mix.JSON(result))
+	err = mix.Write(w, mix.JSON(result))
 
 	if err != nil {
 		log.Println(err)

@@ -38,13 +38,17 @@ func (obj Vehicle) Create() (husk.Recorder, error) {
 		return nil, errors.New("vehicle VIN already exists")
 	}
 
-	rec := ctx.Vehicles.Create(obj)
+	rec, err := ctx.Vehicles.Create(obj)
 
-	if rec.Error != nil {
-		return nil, rec.Error
+	if err != nil {
+		return nil, err
 	}
 
-	ctx.Vehicles.Save()
+	err = ctx.Vehicles.Save()
 
-	return rec.Record, nil
+	if err != nil {
+		return nil, err
+	}
+
+	return rec, nil
 }
