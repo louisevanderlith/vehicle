@@ -7,20 +7,20 @@ import (
 	"net/http"
 )
 
-func SetupRoutes(scrt, securityUrl, authorityUrl string) http.Handler {
+func SetupRoutes(scrt, securityUrl, managerUrl string) http.Handler {
 	r := mux.NewRouter()
-
-	view := kong.ResourceMiddleware(http.DefaultClient, "vehicle.info.view", scrt, securityUrl, authorityUrl, ViewVehicle)
+	ins := kong.NewResourceInspector(http.DefaultClient, securityUrl, managerUrl)
+	view := ins.Middleware("vehicle.info.view", scrt, ViewVehicle)
 	r.HandleFunc("/info/{key:[0-9]+\\x60[0-9]+}", view).Methods(http.MethodGet)
 
-	srch := kong.ResourceMiddleware(http.DefaultClient, "vehicle.info.search", scrt, securityUrl, authorityUrl, SearchVehicle)
+	srch := ins.Middleware("vehicle.info.search", scrt, SearchVehicle)
 	r.HandleFunc("/info/{pagesize:[A-Z][0-9]+}", srch).Methods(http.MethodGet)
 	//r.HandleFunc("/info/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", srch).Methods(http.MethodGet)
 
-	create := kong.ResourceMiddleware(http.DefaultClient, "vehicle.info.create", scrt, securityUrl, authorityUrl, CreateVehicle)
+	create := ins.Middleware("vehicle.info.create", scrt, CreateVehicle)
 	r.HandleFunc("/info", create).Methods(http.MethodPost)
 
-	//update := kong.ResourceMiddleware("vehicle.info.update", scrt, secureUrl, )
+	//update := ins.Middleware("vehicle.info.update", scrt, secureUrl, )
 	//r.HandleFunc("/info", update).Methods(http.MethodPut)
 
 	lst, err := kong.Whitelist(http.DefaultClient, securityUrl, "vehicle.info.view", scrt)
