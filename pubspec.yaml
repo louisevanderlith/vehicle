@@ -5,5 +5,8 @@ repository: https://github.com/louisevanderlith/vehicle
 homepage: https://github.com/louisevanderlith/vehicle
 environment:
   sdk: '>=2.0.0 < 3.0.0'
+dev_dependencies:
+  build_runner: '>=1.6.2 <2.0.0'
+  build_web_compilers:
 dependencies:
   mango_ui: '^1.0.3'

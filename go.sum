@@ -8,6 +8,8 @@ github.com/louisevanderlith/husk v1.5.2 h1:AeE/OI6MX8P1neir+eifK9WMTMxJTfko2Ownh
 github.com/louisevanderlith/husk v1.5.2/go.mod h1:iEFeOL3LmBuXlHl3lhiq8yDfob2CNbv+p23ZjP5DORU=
 github.com/louisevanderlith/kong v1.6.0 h1:bea4drpB77vyxRJgUArfk3JsQI9wJMgcppfo06sxSEI=
 github.com/louisevanderlith/kong v1.6.0/go.mod h1:WTTCHYVCr8igIY5mBYbrevpHcWSFXATroUCcwYbIyY8=
+github.com/louisevanderlith/kong v1.6.1 h1:SXQFp752rfTr0hLYjJaLk+/AuvivMMHf6jbuzAjJcwU=
+github.com/louisevanderlith/kong v1.6.1/go.mod h1:WTTCHYVCr8igIY5mBYbrevpHcWSFXATroUCcwYbIyY8=
 github.com/rs/cors v1.7.0 h1:+88SsELBHx5r+hZ8TCkggzSstaWNbDvThkVK8H6f9ik=
 github.com/rs/cors v1.7.0/go.mod h1:gFx+x8UowdsKA9AchylcLynDq+nNFfI8FkUZdN/jGCU=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
