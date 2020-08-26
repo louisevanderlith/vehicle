@@ -15,10 +15,15 @@ type Vehicle struct {
 	Year      int
 	Engine    Engine
 	Gearbox   Gearbox
-	BodyStyle string
+	BodyStyle bodytype.Enum
 	Doors     int
 	Trim      string
 	Extra     []string
+	Spare	bool
+	Service	bool
+	Condition	string
+	Issues	string
+	Mileage	int
 }
 
 func (m Vehicle) Valid() error {
