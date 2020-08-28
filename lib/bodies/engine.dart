@@ -1,11 +1,15 @@
 class Engine {
-  final String Code;
-  final String SerialNo;
-  final num Output;
+  final String code;
+  final String serialNo;
+  final num output;
 
-  Engine(this.Code, this.SerialNo, this.Output);
+  Engine(this.code, this.serialNo, this.output);
 
   Map<String, dynamic> toJson() {
-    return {'Code': Code, 'SerialNo': SerialNo, 'Output': Output};
+    return {
+      "Code": this.code,
+      "SerialNo": this.serialNo,
+      "Output": this.output
+    };
   }
 }

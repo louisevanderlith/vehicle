@@ -10,7 +10,7 @@ func (f vehicleFilter) Filter(obj husk.Dataer) bool {
 
 func byYear(year int) vehicleFilter {
 	return func(obj Vehicle)bool {
-		return obj.Year == year
+		return obj.Series.Year == year
 	}
 }
 

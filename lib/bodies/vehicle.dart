@@ -1,53 +1,60 @@
 import 'package:mango_ui/keys.dart';
-import 'package:mango_vehicle/bodies/engine.dart';
-import 'package:mango_vehicle/bodies/engine.dart';
-import 'package:mango_vehicle/bodies/series.dart';
+
+import 'engine.dart';
+import 'gearbox.dart';
+import 'series.dart';
 
 class Vehicle {
-  final Key VinKey;
-  final String FullVin;
-  final Series Series;
-  final String Colour;
-  final String PaintNo;
-  final num Month;
-  final num Year;
-  final Engine Engine;
-  final Gearbox Gearbox;
-  final String BodyStyle;
-  final num Doors;
-  final String Trim;
-  final List<String> Extra;
+  final Key vinKey;
+  final String fullVin;
+  final Series series;
+  final String colour;
+  final String paintNo;
+  final Engine engine;
+  final Gearbox gearbox;
+  final String bodyStyle;
+  final num doors;
+  final List<String> extra;
+  final bool spare;
+  final bool service;
+  final String condition;
+  final String issues;
+  final num mileage;
 
   Vehicle(
-      this.VinKey,
-      this.FullVin,
-      this.Series,
-      this.Colour,
-      this.PaintNo,
-      this.Month,
-      this.Year,
-      this.Engine,
-      this.Gearbox,
-      this.BodyStyle,
-      this.Doors,
-      this.Trim,
-      this.Extra);
+      this.vinKey,
+      this.fullVin,
+      this.series,
+      this.colour,
+      this.paintNo,
+      this.engine,
+      this.gearbox,
+      this.bodyStyle,
+      this.doors,
+      this.extra,
+      this.spare,
+      this.service,
+      this.condition,
+      this.issues,
+      this.mileage);
 
   Map<String, dynamic> toJson() {
     return {
-      'VINKey': VinKey,
-      'FullVIN': FullVin,
-      'Series': Series,
-      'Colour': Colour,
-      'PaintNo': PaintNo,
-      'Month': Month,
-      'Year': Year,
-      'Engine': Engine,
-      'Gearbox': Gearbox,
-      'BodyStyle': BodyStyle,
-      'Doors': Doors,
-      'Trim': Trim,
-      'Extra': Extra,
+      "VINKey": this.vinKey,
+      "FullVIN": this.fullVin,
+      "Series": this.series,
+      "Colour": this.colour,
+      "PaintNo": this.paintNo,
+      "Engine": this.engine,
+      "Gearbox": this.gearbox,
+      "BodyStyle": this.bodyStyle,
+      "Doors": this.doors,
+      "Extra": this.extra,
+      "Spare": this.spare,
+      "Service": this.service,
+      "Condition": this.condition,
+      "Issues": this.issues,
+      "Mileage": this.mileage
     };
   }
 }

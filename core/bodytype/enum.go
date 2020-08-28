@@ -31,7 +31,3 @@ var vals = [...]string{
 	"Single Cab Bakkie",
 	"Station Wagon",
 }
-
-func (e Enum) String() string {
-	return vals[e]
-}

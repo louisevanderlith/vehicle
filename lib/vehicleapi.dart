@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:html';
 
-import 'package:mango_vehicle/bodies/vehicle.dart';
+import 'package:mango_ui/requester.dart';
+import 'bodies/vehicle.dart';
 
 Future<HttpRequest> submitVehicle(Vehicle obj) async {
   var apiroute = getEndpoint("vehicle");

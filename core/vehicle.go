@@ -3,6 +3,7 @@ package core
 import (
 	"errors"
 	"github.com/louisevanderlith/husk"
+	"github.com/louisevanderlith/vehicle/core/bodytype"
 )
 
 type Vehicle struct {
@@ -11,13 +12,10 @@ type Vehicle struct {
 	Series    SeriesInfo
 	Colour    string
 	PaintNo   string
-	Month     int
-	Year      int
 	Engine    Engine
 	Gearbox   Gearbox
 	BodyStyle bodytype.Enum
 	Doors     int
-	Trim      string
 	Extra     []string
 	Spare	bool
 	Service	bool

@@ -1,17 +1,17 @@
 class Gearbox {
-  final String Code;
-  final String SerialNo;
-  final num Gears;
-  final String Type;
+  final String code;
+  final String serialNo;
+  final num gears;
+  final String type;
 
-  Gearbox(this.Code, this.SerialNo, this.Gears, this.Type);
+  Gearbox(this.code, this.serialNo, this.gears, this.type);
 
   Map<String, dynamic> toJson() {
     return {
-      'Code': Code,
-      'SerialNo': SerialNo,
-      'Gears': Gears,
-      'Type': Type,
+      "Code": this.code,
+      "SerialNo": this.serialNo,
+      "Gears": this.gears,
+      "Type": this.type,
     };
   }
 }
