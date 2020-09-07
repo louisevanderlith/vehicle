@@ -1,15 +1,17 @@
 package core
 
-import "github.com/louisevanderlith/husk"
+import (
+	"github.com/louisevanderlith/husk/hsk"
+)
 
 type vehicleFilter func(obj Vehicle) bool
 
-func (f vehicleFilter) Filter(obj husk.Dataer) bool {
-	return f(obj.(Vehicle))
+func (f vehicleFilter) Filter(obj hsk.Record) bool {
+	return f(obj.Data().(Vehicle))
 }
 
 func byYear(year int) vehicleFilter {
-	return func(obj Vehicle)bool {
+	return func(obj Vehicle) bool {
 		return obj.Series.Year == year
 	}
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:html';
 
 import 'package:mango_ui/requester.dart';
+
 import 'bodies/vehicle.dart';
 
 Future<HttpRequest> submitVehicle(Vehicle obj) async {

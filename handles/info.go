@@ -3,10 +3,10 @@ package handles
 import (
 	"github.com/louisevanderlith/droxolite/drx"
 	"github.com/louisevanderlith/droxolite/mix"
+	"github.com/louisevanderlith/husk/keys"
 	"log"
 	"net/http"
 
-	"github.com/louisevanderlith/husk"
 	"github.com/louisevanderlith/vehicle/core"
 )
 
@@ -23,7 +23,7 @@ func SearchVehicle(w http.ResponseWriter, r *http.Request) {
 
 //:vehicleKey
 func ViewVehicle(w http.ResponseWriter, r *http.Request) {
-	key, err := husk.ParseKey(drx.FindParam(r, "key"))
+	key, err := keys.ParseKey(drx.FindParam(r, "key"))
 
 	if err != nil {
 		log.Println(err)
