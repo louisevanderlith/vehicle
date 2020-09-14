@@ -7,7 +7,7 @@ import (
 type vehicleFilter func(obj Vehicle) bool
 
 func (f vehicleFilter) Filter(obj hsk.Record) bool {
-	return f(obj.Data().(Vehicle))
+	return f(obj.GetValue().(Vehicle))
 }
 
 func byYear(year int) vehicleFilter {
