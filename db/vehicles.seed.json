@@ -1,0 +1,38 @@
+[
+  {
+    "VINKey": "0`0",
+    "FullVIN": "AUX8891237569182374",
+    "Series": {
+      "Model": "Hilux",
+      "Manufacturer": "toyota",
+      "AssemblyPlant": "Jou ma se huis",
+      "Month": 8,
+      "Year": 1999,
+      "Trim": "die een"
+    },
+    "Colour": "Pink",
+    "PaintNo": "X88",
+    "Engine": {
+      "Code": "US1",
+      "SerialNo": "123",
+      "Output": 87
+    },
+    "Gearbox": {
+      "Code": "A90",
+      "SerialNo": "A9077736",
+      "Gears": 5,
+      "Type": "Manual"
+    },
+    "BodyStyle": 2,
+    "Doors": 4,
+    "Extra": [
+      "Aircon",
+      "Powersteering"
+    ],
+    "Spare": true,
+    "Service": false,
+    "Condition": "Good",
+    "Issues": "None",
+    "Mileage": 123
+  }
+]
