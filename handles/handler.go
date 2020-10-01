@@ -2,14 +2,14 @@ package handles
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/louisevanderlith/kong"
+	"github.com/louisevanderlith/kong/middle"
 	"github.com/rs/cors"
 	"net/http"
 )
 
 func SetupRoutes(scrt, securityUrl, managerUrl string) http.Handler {
 	r := mux.NewRouter()
-	ins := kong.NewResourceInspector(http.DefaultClient, securityUrl, managerUrl)
+	ins := middle.NewResourceInspector(http.DefaultClient, securityUrl, managerUrl)
 	view := ins.Middleware("vehicle.info.view", scrt, ViewVehicle)
 	r.HandleFunc("/info/{key:[0-9]+\\x60[0-9]+}", view).Methods(http.MethodGet)
 
@@ -23,7 +23,16 @@ func SetupRoutes(scrt, securityUrl, managerUrl string) http.Handler {
 	//update := ins.Middleware("vehicle.info.update", scrt, secureUrl, )
 	//r.HandleFunc("/info", update).Methods(http.MethodPut)
 
-	lst, err := kong.Whitelist(http.DefaultClient, securityUrl, "vehicle.info.view", scrt)
+	mans := ins.Middleware("vehicle.lookup.manufacturers", scrt, GetManufacturers)
+	r.HandleFunc("/lookup/manufacturers/{year:[0-9]+}", mans).Methods(http.MethodGet)
+
+	mdls := ins.Middleware("vehicle.lookup.models", scrt, GetModels)
+	r.HandleFunc("/lookup/models/{year:[0-9]+}/{manufacturer:[a-zA-Z]+}", mdls).Methods(http.MethodGet)
+
+	trms := ins.Middleware("vehicle.lookup.trims", scrt, GetTrims)
+	r.HandleFunc("/lookup/trim/{year:[0-9]+}/{manufacturer:[a-zA-Z]+}/{model:[a-zA-Z]+}", trms).Methods(http.MethodGet)
+
+	lst, err := middle.Whitelist(http.DefaultClient, securityUrl, "vehicle.info.view", scrt)
 
 	if err != nil {
 		panic(err)

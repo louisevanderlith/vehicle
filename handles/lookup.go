@@ -2,6 +2,7 @@ package handles
 
 import (
 	"github.com/louisevanderlith/droxolite/drx"
+	"github.com/louisevanderlith/droxolite/mix"
 	"github.com/louisevanderlith/vehicle/core"
 	"log"
 	"net/http"
@@ -78,7 +79,6 @@ func GetTrims(w http.ResponseWriter, r *http.Request) {
 	err = mix.Write(w, mix.JSON(lst))
 
 	if err != nil {
-		log.Println(err)
+		log.Println("Serve Error", err)
 	}
 }
-

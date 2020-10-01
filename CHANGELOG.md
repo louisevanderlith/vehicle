@@ -1,5 +1,9 @@
 ## Mango-Vehicle
 
+# 1.0.8
+
+* Added Lookup API to Vehicle.
+
 # 1.0.7
 
 * Added additional fields to Vehicle.
