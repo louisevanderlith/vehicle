@@ -19,3 +19,5 @@ db/*.*
 build
 pubspec.lock
 .packages
+
+cmd/cmd
