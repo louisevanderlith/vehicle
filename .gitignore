@@ -12,5 +12,12 @@
 *.out
 
 vehicle
-db/*.husk
+db/*.*
 !db/*.seed.json
+#Dart
+.dart_tool
+build
+pubspec.lock
+.packages
+
+cmd/cmd

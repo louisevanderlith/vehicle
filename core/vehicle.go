@@ -2,50 +2,47 @@ package core
 
 import (
 	"errors"
-
-	"github.com/louisevanderlith/husk"
+	"github.com/louisevanderlith/husk/hsk"
+	"github.com/louisevanderlith/husk/op"
+	"github.com/louisevanderlith/husk/records"
+	"github.com/louisevanderlith/husk/validation"
+	"github.com/louisevanderlith/vehicle/core/bodytype"
 )
 
 type Vehicle struct {
-	VINKey    husk.Key
+	VINKey    hsk.Key
 	FullVIN   string
 	Series    SeriesInfo
 	Colour    string
 	PaintNo   string
-	Month     int
-	Year      int
 	Engine    Engine
 	Gearbox   Gearbox
-	BodyStyle string
+	BodyStyle bodytype.Enum
 	Doors     int
-	Trim      string
 	Extra     []string
+	Spare     bool
+	Service   bool
+	Condition string
+	Issues    string
+	Mileage   int
 }
 
-func (m Vehicle) Valid() (bool, error) {
-	return husk.ValidateStruct(&m)
+func (m Vehicle) Valid() error {
+	return validation.Struct(m)
 }
 
-func GetVehicles(page, pagesize int) husk.Collection {
-	return ctx.Vehicles.Find(page, pagesize, husk.Everything())
+func GetVehicles(page, pagesize int) (records.Page, error) {
+	return ctx.Vehicles.Find(page, pagesize, op.Everything())
 }
 
-func GetVehicle(key husk.Key) (husk.Recorder, error) {
+func GetVehicle(key hsk.Key) (hsk.Record, error) {
 	return ctx.Vehicles.FindByKey(key)
 }
 
-func (obj Vehicle) Create() (husk.Recorder, error) {
-	if ctx.Vehicles.Exists(byFullVIN((obj.FullVIN))) {
+func (obj Vehicle) Create() (hsk.Key, error) {
+	if ctx.Vehicles.Exists(byFullVIN(obj.FullVIN)) {
 		return nil, errors.New("vehicle VIN already exists")
 	}
 
-	rec := ctx.Vehicles.Create(obj)
-
-	if rec.Error != nil {
-		return nil, rec.Error
-	}
-
-	ctx.Vehicles.Save()
-
-	return rec.Record, nil
+	return ctx.Vehicles.Create(obj)
 }
