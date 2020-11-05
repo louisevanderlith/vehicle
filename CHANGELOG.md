@@ -1,5 +1,13 @@
 ## Mango-Vehicle
 
+# 1.0.10
+
+* Updated api
+
+# 1.0.9
+
+* Added functions from StockAPI
+
 # 1.0.8
 
 * Added Lookup API to Vehicle.

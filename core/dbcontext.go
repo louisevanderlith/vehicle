@@ -5,6 +5,9 @@ import (
 	"encoding/json"
 	"github.com/louisevanderlith/husk"
 	"github.com/louisevanderlith/husk/collections"
+	"github.com/louisevanderlith/husk/hsk"
+	"github.com/louisevanderlith/husk/op"
+	"github.com/louisevanderlith/husk/records"
 	"log"
 	"os"
 	"reflect"
@@ -15,9 +18,17 @@ type VehicleContext interface {
 	GetManufacturers(year int) (map[string]struct{}, error)
 	GetModels(year int, manufacturer string) (map[string]struct{}, error)
 	GetTrims(year int, manufacturer, model string) (map[string]struct{}, error)
+	GetVehicle(key hsk.Key) (Vehicle, error)
+	FindVehicles(page, size int) (records.Page, error)
+	CreateVehicle(obj Vehicle) (hsk.Key, error)
+	UpdateVehicle(key hsk.Key, obj Vehicle) error
 }
 
-func GetManufacturers(year int) (map[string]struct{}, error) {
+func Context() VehicleContext {
+	return ctx
+}
+
+func (c context) GetManufacturers(year int) (map[string]struct{}, error) {
 	result := make(map[string]struct{})
 	err := ctx.Vehicles.Map(&result, Manufacturers(year))
 
@@ -28,7 +39,7 @@ func GetManufacturers(year int) (map[string]struct{}, error) {
 	return result, nil
 }
 
-func GetModels(year int, manufacturer string) (map[string]struct{}, error) {
+func (c context) GetModels(year int, manufacturer string) (map[string]struct{}, error) {
 	result := make(map[string]struct{})
 	err := ctx.Vehicles.Map(&result, Models(year, manufacturer))
 
@@ -39,7 +50,7 @@ func GetModels(year int, manufacturer string) (map[string]struct{}, error) {
 	return result, nil
 }
 
-func GetTrims(year int, manufacturer, model string) (map[string]struct{}, error) {
+func (c context) GetTrims(year int, manufacturer, model string) (map[string]struct{}, error) {
 	result := make(map[string]struct{})
 	err := ctx.Vehicles.Map(&result, Trim(year, manufacturer, model))
 
@@ -48,6 +59,28 @@ func GetTrims(year int, manufacturer, model string) (map[string]struct{}, error)
 	}
 
 	return result, nil
+}
+
+func (c context) GetVehicle(key hsk.Key) (Vehicle, error) {
+	rec, err := c.Vehicles.FindByKey(key)
+
+	if err != nil {
+		return Vehicle{}, err
+	}
+
+	return rec.GetValue().(Vehicle), nil
+}
+
+func (c context) FindVehicles(page, size int) (records.Page, error) {
+	return c.Vehicles.Find(page, size, op.Everything())
+}
+
+func (c context) CreateVehicle(obj Vehicle) (hsk.Key, error) {
+	return c.Vehicles.Create(obj)
+}
+
+func (c context) UpdateVehicle(key hsk.Key, obj Vehicle) error {
+	return c.Vehicles.Update(key, obj)
 }
 
 type context struct {

@@ -53,3 +53,4 @@ func FetchAllVehicles(web *http.Client, host, pagesize string) (records.Page, er
 
 	return result, err
 }
+
