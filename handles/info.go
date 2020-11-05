@@ -68,6 +68,39 @@ func CreateVehicle(w http.ResponseWriter, r *http.Request) {
 	err = mix.Write(w, mix.JSON(result))
 
 	if err != nil {
+		log.Println("Serve Error", err)
+	}
+}
+
+func UpdateVehicle(w http.ResponseWriter, r *http.Request) {
+	key, err := keys.ParseKey(drx.FindParam(r, "key"))
+
+	if err != nil {
 		log.Println(err)
+		http.Error(w, "", http.StatusBadRequest)
+		return
+	}
+
+	obj := core.Vehicle{}
+	err = drx.JSONBody(r, &obj)
+
+	if err != nil {
+		log.Println(err)
+		http.Error(w, "", http.StatusBadRequest)
+		return
+	}
+
+	err = core.Context().UpdateVehicle(key, obj)
+
+	if err != nil {
+		log.Println("Update Vehicle Error", err)
+		http.Error(w, "", http.StatusNotFound)
+		return
+	}
+
+	err = mix.Write(w, mix.JSON(nil))
+
+	if err != nil {
+		log.Println("Serve Error", err)
 	}
 }

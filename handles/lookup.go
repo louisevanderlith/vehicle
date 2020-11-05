@@ -11,7 +11,7 @@ import (
 
 func GetManufacturers(w http.ResponseWriter, r *http.Request) {
 	year, _ := strconv.Atoi(drx.FindParam(r, "year"))
-	result, err := core.GetManufacturers(year)
+	result, err := core.Context().GetManufacturers(year)
 
 	if err != nil {
 		log.Println("Get Manufacturers Error", err)
@@ -36,7 +36,7 @@ func GetModels(w http.ResponseWriter, r *http.Request) {
 	year, _ := strconv.Atoi(drx.FindParam(r, "year"))
 	man := drx.FindParam(r, "manufacturer")
 
-	result, err := core.GetModels(year, man)
+	result, err := core.Context().GetModels(year, man)
 
 	if err != nil {
 		log.Println("Get Models Error", err)
@@ -62,7 +62,7 @@ func GetTrims(w http.ResponseWriter, r *http.Request) {
 	man := drx.FindParam(r, "manufacturer")
 	mdl := drx.FindParam(r, "model")
 
-	result, err := core.GetTrims(year, man, mdl)
+	result, err := core.Context().GetTrims(year, man, mdl)
 
 	if err != nil {
 		log.Println(err)

@@ -23,6 +23,16 @@ func SetupRoutes(issuer, audience string) http.Handler {
 
 	r.Handle("/lookup/trim/{year:[0-9]+}/{manufacturer:[a-zA-Z]+}/{model:[a-zA-Z]+}", mw.Handler(http.HandlerFunc(GetTrims))).Methods(http.MethodGet)
 
+	/*
+	//cars
+		r.Handle("/cars", mw.Handler(http.HandlerFunc(GetCars))).Methods(http.MethodGet)
+		r.Handle("/cars/{key:[0-9]+\\x60[0-9]+}", mw.Handler(http.HandlerFunc(ViewCar))).Methods(http.MethodGet)
+		r.Handle("/cars/{pagesize:[A-Z][0-9]+}", mw.Handler(http.HandlerFunc(SearchCars))).Methods(http.MethodGet)
+		r.Handle("/cars/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", mw.Handler(http.HandlerFunc(SearchCars))).Methods(http.MethodGet)
+		r.Handle("/cars", mw.Handler(http.HandlerFunc(CreateCar))).Methods(http.MethodPost)
+		r.Handle("/cars/{key:[0-9]+\\x60[0-9]+}", mw.Handler(http.HandlerFunc(UpdateCar))).Methods(http.MethodPut)
+	*/
+
 	//lst, err := middle.Whitelist(http.DefaultClient, securityUrl, "vehicle.info.view", scrt)
 
 	//if err != nil {
