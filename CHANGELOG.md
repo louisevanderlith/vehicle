@@ -1,5 +1,9 @@
 ## Mango-Vehicle
 
+# 1.0.11
+
+* Changed BodyStyle to num for Enum usage
+
 # 1.0.10
 
 * Updated api

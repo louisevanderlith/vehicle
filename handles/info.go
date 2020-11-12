@@ -14,10 +14,16 @@ func SearchVehicle(w http.ResponseWriter, r *http.Request) {
 	page, size := drx.GetPageData(r)
 	result, err := core.GetVehicles(page, size)
 
+	if err != nil {
+		log.Println("Get Vehicles Error", err)
+		http.Error(w, "", http.StatusInternalServerError)
+		return
+	}
+
 	err = mix.Write(w, mix.JSON(result))
 
 	if err != nil {
-		log.Println(err)
+		log.Println("Serve Error", err)
 	}
 }
 
@@ -47,8 +53,7 @@ func ViewVehicle(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateVehicle(w http.ResponseWriter, r *http.Request) {
-	obj := core.Vehicle{}
-
+	obj := core.NewVehicle()
 	err := drx.JSONBody(r, &obj)
 
 	if err != nil {
@@ -81,11 +86,11 @@ func UpdateVehicle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	obj := core.Vehicle{}
+	obj := core.NewVehicle()
 	err = drx.JSONBody(r, &obj)
 
 	if err != nil {
-		log.Println(err)
+		log.Println("Bind Error", err)
 		http.Error(w, "", http.StatusBadRequest)
 		return
 	}

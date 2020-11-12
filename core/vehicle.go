@@ -3,6 +3,7 @@ package core
 import (
 	"errors"
 	"github.com/louisevanderlith/husk/hsk"
+	"github.com/louisevanderlith/husk/keys"
 	"github.com/louisevanderlith/husk/op"
 	"github.com/louisevanderlith/husk/records"
 	"github.com/louisevanderlith/husk/validation"
@@ -32,6 +33,12 @@ type Vehicle struct {
 	HasNatis      bool   `hsk:"default(false)"`
 	EstValue      int64
 	LicenseExpiry time.Time
+}
+
+func NewVehicle() Vehicle {
+	return Vehicle{
+		VINKey: keys.CrazyKey(),
+	}
 }
 
 func (o Vehicle) Valid() error {

@@ -12,7 +12,7 @@ class Vehicle {
   final String paintNo;
   final Engine engine;
   final Gearbox gearbox;
-  final String bodyStyle;
+  final num bodyStyle;
   final num doors;
   final List<String> extra;
   final bool spare;
