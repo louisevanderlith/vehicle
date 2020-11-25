@@ -13,7 +13,7 @@ func SetupRoutes(issuer, audience string) http.Handler {
 	r.Handle("/info/{key:[0-9]+\\x60[0-9]+}", mw.Handler(http.HandlerFunc(ViewVehicle))).Methods(http.MethodGet)
 
 	r.Handle("/info/{pagesize:[A-Z][0-9]+}", mw.Handler(http.HandlerFunc(SearchVehicle))).Methods(http.MethodGet)
-	//r.HandleFunc("/info/{pagesize:[A-Z][0-9]+}/{hash:[a-zA-Z0-9]+={0,2}}", srch).Methods(http.MethodGet)
+	//r.HandleFunc("/info", mw.Handler(http.HandlerFunc(GetV))).Methods(http.MethodGet)
 
 	r.Handle("/info", mw.Handler(http.HandlerFunc(CreateVehicle))).Methods(http.MethodPost)
 

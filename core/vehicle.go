@@ -25,11 +25,11 @@ type Vehicle struct {
 	Spare     bool
 	Service   bool
 	Condition string
-	Issues    string
+	Issues    string `hsk:"null"`
 	Mileage   int
 
 	Info          string `hsk:"size(128)"`
-	Year          int    `orm:"null"`
+	Year          int    `hsk:"null"`
 	HasNatis      bool   `hsk:"default(false)"`
 	EstValue      int64
 	LicenseExpiry time.Time
