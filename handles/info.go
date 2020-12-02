@@ -99,7 +99,7 @@ func UpdateVehicle(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		log.Println("Update Vehicle Error", err)
-		http.Error(w, "", http.StatusNotFound)
+		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
 
